@@ -1,4 +1,5 @@
 ﻿using Shouldly;
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -32,17 +33,17 @@ namespace PaymentService.IntegrationTests
         }
 
         [Fact]
-        public async Task WhenGetMethodIsInvokedWithAValidToken_GetShouldAnswerStatusOkOrNotFound()
+        public async Task WhenGetMethodIsInvokedWithAValidToken_GetShouldNotAnswerWithStatusUnAuthorized()
         {
             //Arrange
-            var expectedStatusCodes = new[] { HttpStatusCode.OK, HttpStatusCode.NotFound };
             _httpClient.DefaultRequestHeaders.Add("Authorization", _fakeToken);
+            var paymentId = new Guid();
 
             // Act
-            var response = await _httpClient.GetAsync("/api/payments/");
+            var response = await _httpClient.GetAsync($"/api/payments/{paymentId}");
 
             // Assert
-            response.StatusCode.ShouldBeOneOf(expectedStatusCodes);
+            response.StatusCode.ShouldNotBe(HttpStatusCode.Unauthorized);
         }
     }
 }
