@@ -1,13 +1,11 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using FakeTokenService.Services;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using PaymentService.Managers.Token;
-using PaymentService.Middlewares;
-using System;
 
-namespace PaymentService
+namespace FakeTokenService
 {
     public class Startup
     {
@@ -23,12 +21,7 @@ namespace PaymentService
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddTransient<ITokenManager, TokenManager>();
-
-            services.AddHttpClient("tokensProvider", c =>
-            {
-                c.BaseAddress = new Uri(Configuration["TokensProvider"]);
-            });
+            services.AddTransient<ITokenService, TokenService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,9 +37,6 @@ namespace PaymentService
             }
 
             app.UseHttpsRedirection();
-
-            app.UseTokenAuthentication();
-
             app.UseMvc();
         }
     }
