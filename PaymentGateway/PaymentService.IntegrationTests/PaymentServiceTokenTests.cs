@@ -32,17 +32,17 @@ namespace PaymentService.IntegrationTests
         }
 
         [Fact]
-        public async Task WhenGetMethodIsInvokedWithAValidToken_GetShouldAnswerStatusOk()
+        public async Task WhenGetMethodIsInvokedWithAValidToken_GetShouldAnswerStatusOkOrNotFound()
         {
             //Arrange
-            var expectedStatusCode = HttpStatusCode.OK;
+            var expectedStatusCodes = new[] { HttpStatusCode.OK, HttpStatusCode.NotFound };
             _httpClient.DefaultRequestHeaders.Add("Authorization", _fakeToken);
 
             // Act
             var response = await _httpClient.GetAsync("/api/payments/");
 
             // Assert
-            response.StatusCode.ShouldBe(expectedStatusCode);
+            response.StatusCode.ShouldBeOneOf(expectedStatusCodes);
         }
     }
 }
