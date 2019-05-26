@@ -22,9 +22,9 @@ namespace PaymentService.Managers.Token
             bool result = false;
             try
             {
-                var path = $"api/tokens/{token}";
+                var resource = $"api/tokens/{token}";
 
-                var request = new HttpRequestMessage(HttpMethod.Get, path);
+                var request = new HttpRequestMessage(HttpMethod.Get, resource);
 
                 var client = _clientFactory.CreateClient("tokensProvider");
 

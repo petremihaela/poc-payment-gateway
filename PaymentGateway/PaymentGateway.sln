@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentService", "PaymentSe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FakeTokenService", "FakeTokenService\FakeTokenService.csproj", "{258D99F6-0976-4217-86E8-660C0D6F252C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A7CE5D2A-9EDB-4D80-B24F-3EECF18EE5C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentService.IntegrationTests", "PaymentService.IntegrationTests\PaymentService.IntegrationTests.csproj", "{F003AC19-BA8E-45C9-B65C-7043D0E5A473}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +27,10 @@ Global
 		{258D99F6-0976-4217-86E8-660C0D6F252C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{258D99F6-0976-4217-86E8-660C0D6F252C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{258D99F6-0976-4217-86E8-660C0D6F252C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F003AC19-BA8E-45C9-B65C-7043D0E5A473}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F003AC19-BA8E-45C9-B65C-7043D0E5A473}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F003AC19-BA8E-45C9-B65C-7043D0E5A473}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F003AC19-BA8E-45C9-B65C-7043D0E5A473}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -30,6 +38,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{1984B3E1-4FD6-44F4-88F6-EA90FBD38FC9} = {7B29855A-18B5-4531-9FF1-5CF0ECE0B702}
 		{258D99F6-0976-4217-86E8-660C0D6F252C} = {7B29855A-18B5-4531-9FF1-5CF0ECE0B702}
+		{F003AC19-BA8E-45C9-B65C-7043D0E5A473} = {A7CE5D2A-9EDB-4D80-B24F-3EECF18EE5C8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C3C02A6B-3F87-47B7-9EFE-C4742F671D36}
