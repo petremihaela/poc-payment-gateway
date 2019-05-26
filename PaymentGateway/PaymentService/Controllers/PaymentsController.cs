@@ -25,7 +25,9 @@ namespace PaymentService.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody]PaymentProcessRequest payment)
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        public IActionResult ProcessPayment([FromBody]PaymentProcessRequest payment)
         {
             //TODO validate request
 
@@ -57,10 +59,10 @@ namespace PaymentService.Controllers
             return Ok(new { paymentId, status });
         }
 
-        [HttpGet("{paymentId}", Name = "RetrievePayment")]
+        [HttpGet("{paymentId}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<PaymentDetailsResponse>> RetrievePaymentAsync(Guid paymentId)
+        public async Task<ActionResult<PaymentDetailsResponse>> RetrievePayment(Guid paymentId)
         {
             var entity = await _paymentManager.GetPaymentAsync(paymentId);
 

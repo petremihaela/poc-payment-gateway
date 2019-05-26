@@ -41,6 +41,7 @@ namespace PaymentService
                 c.BaseAddress = new Uri(Configuration["TokensProvider"]);
             });
 
+            services.AddRouting(options => options.LowercaseUrls = true);
 
             services.AddMvc(options =>
             {
