@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using PaymentService.Managers.Token;
 using System;
 using System.Linq;
@@ -15,11 +16,14 @@ namespace PaymentService.Middlewares.TokenAuthentication
 
         private readonly ITokenManager _tokenManager;
 
-        public TokenValidationMiddleware(RequestDelegate next, IHostingEnvironment env, ITokenManager tokenManager)
+        private readonly ILogger<TokenValidationMiddleware> _logger;
+
+        public TokenValidationMiddleware(RequestDelegate next, IHostingEnvironment env, ITokenManager tokenManager, ILogger<TokenValidationMiddleware> logger)
         {
             _next = next;
             _env = env;
             _tokenManager = tokenManager;
+            _logger = logger;
         }
 
         public async Task Invoke(HttpContext context)
@@ -28,6 +32,8 @@ namespace PaymentService.Middlewares.TokenAuthentication
             {
                 var token = context.Request.Headers.Where(h => h.Key.Equals("Authorization")).FirstOrDefault().Value;
 
+                _logger.LogInformation($"Request token: {token}");
+
                 var isValidToken = await _tokenManager.ValidateTokenAsync(token);
 
                 if (!isValidToken)
@@ -35,15 +41,15 @@ namespace PaymentService.Middlewares.TokenAuthentication
 
                 await _next.Invoke(context);
             }
-            catch (UnauthorizedAccessException)
+            catch (UnauthorizedAccessException ex)
             {
-                //TODO Logging
                 context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                _logger.LogError(ex.ToString());
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //TODO Logging
                 context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                _logger.LogError(ex.ToString());
             }
         }
     }

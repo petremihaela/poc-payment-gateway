@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -8,9 +9,12 @@ namespace PaymentService.Managers.Token
     {
         private readonly IHttpClientFactory _clientFactory;
 
-        public TokenManager(IHttpClientFactory clientFactory)
+        private readonly ILogger<TokenManager> _logger;
+
+        public TokenManager(IHttpClientFactory clientFactory, ILogger<TokenManager> logger)
         {
             _clientFactory = clientFactory;
+            _logger = logger;
         }
 
         public async Task<bool> ValidateTokenAsync(string token)
@@ -31,9 +35,9 @@ namespace PaymentService.Managers.Token
                     result = await response.Content.ReadAsAsync<bool>();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //Logging
+                _logger.LogError(ex.ToString());
             }
 
             return result;
