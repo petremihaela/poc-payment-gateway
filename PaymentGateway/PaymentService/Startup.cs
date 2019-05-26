@@ -9,6 +9,7 @@ using PaymentService.Core.Context;
 using PaymentService.Core.Managers;
 using PaymentService.Core.Repositories;
 using PaymentService.Core.Services;
+using PaymentService.Filters;
 using PaymentService.Managers.Token;
 using PaymentService.Middlewares;
 using Serilog;
@@ -40,7 +41,12 @@ namespace PaymentService
                 c.BaseAddress = new Uri(Configuration["TokensProvider"]);
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddMvc(options =>
+            {
+                options.Filters.Add<JsonExceptionFilter>();
+
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
