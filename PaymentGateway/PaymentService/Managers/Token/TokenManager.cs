@@ -19,7 +19,7 @@ namespace PaymentService.Managers.Token
 
         public async Task<bool> ValidateTokenAsync(string token)
         {
-            bool result = false;
+            var result = false;
             try
             {
                 var resource = $"api/tokens/{token}";

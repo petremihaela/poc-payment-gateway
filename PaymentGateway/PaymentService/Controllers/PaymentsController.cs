@@ -53,7 +53,7 @@ namespace PaymentService.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"BankResponse-PaymentId: {paymentId}, BankResponse-Status:{status}, PaymentRequest: [{payment.ToString()}], Error: {ex.ToString()}");
+                _logger.LogError($"BankResponse-PaymentId: {paymentId}, BankResponse-Status:{status}, PaymentRequest: [{payment}], Error: {ex}");
             }
 
             return Ok(paymentResponse);

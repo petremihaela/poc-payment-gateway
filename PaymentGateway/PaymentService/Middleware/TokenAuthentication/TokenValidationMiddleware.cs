@@ -7,21 +7,19 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace PaymentService.Middlewares.TokenAuthentication
+namespace PaymentService.Middleware.TokenAuthentication
 {
     public class TokenValidationMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly IHostingEnvironment _env;
 
         private readonly ITokenManager _tokenManager;
 
         private readonly ILogger<TokenValidationMiddleware> _logger;
 
-        public TokenValidationMiddleware(RequestDelegate next, IHostingEnvironment env, ITokenManager tokenManager, ILogger<TokenValidationMiddleware> logger)
+        public TokenValidationMiddleware(RequestDelegate next, ITokenManager tokenManager, ILogger<TokenValidationMiddleware> logger)
         {
             _next = next;
-            _env = env;
             _tokenManager = tokenManager;
             _logger = logger;
         }
@@ -30,7 +28,7 @@ namespace PaymentService.Middlewares.TokenAuthentication
         {
             try
             {
-                var token = context.Request.Headers.Where(h => h.Key.Equals("Authorization")).FirstOrDefault().Value;
+                var token = context.Request.Headers.FirstOrDefault(h => h.Key.Equals("Authorization")).Value;
 
                 _logger.LogInformation($"Request token: {token}");
 

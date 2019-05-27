@@ -13,7 +13,7 @@ using PaymentService.Core.Services;
 using PaymentService.Filters;
 using PaymentService.Managers.PaymentProcessor;
 using PaymentService.Managers.Token;
-using PaymentService.Middlewares;
+using PaymentService.Middleware;
 using Serilog;
 using System;
 
@@ -31,14 +31,14 @@ namespace PaymentService
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //In memory - current poc's scope
+            //In memory - current POC scope
             services.AddDbContext<PaymentServiceDbContext>(options => options.UseInMemoryDatabase("PaymentServiceDb"));
 
             services.AddTransient<ITokenManager, TokenManager>();
             services.AddTransient<IPaymentRepository, PaymentRepository>();
             services.AddTransient<IPaymentManager, PaymentManager>();
 
-            //Fake bank entity - current poc's scope
+            //Fake bank entity - current POC scope
             services.AddTransient<IPaymentProcessor, FakePaymentProcessor>();
 
             services.AddHttpClient("tokensProvider", c =>  {

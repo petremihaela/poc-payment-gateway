@@ -1,6 +1,6 @@
 ﻿namespace PaymentService.Models
 {
-    public class PaymentSeviceError
+    public class PaymentServiceError
     {
         public string Message { get; set; }
 

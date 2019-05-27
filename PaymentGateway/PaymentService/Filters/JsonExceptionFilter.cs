@@ -20,7 +20,7 @@ namespace PaymentService.Filters
 
         public void OnException(ExceptionContext context)
         {
-            var error = new PaymentSeviceError();
+            var error = new PaymentServiceError();
 
             _logger.LogError(context.Exception.ToString());
 

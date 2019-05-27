@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using PaymentService.Middlewares.TokenAuthentication;
+using PaymentService.Middleware.TokenAuthentication;
 
-namespace PaymentService.Middlewares
+namespace PaymentService.Middleware
 {
     public static class MiddlewareExtensions
     {
