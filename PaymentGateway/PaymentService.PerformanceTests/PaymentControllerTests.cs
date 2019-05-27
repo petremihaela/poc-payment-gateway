@@ -2,31 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using TestsHelper;
 using Xunit;
 
 namespace PaymentService.PerformanceTests
 {
     public class PaymentControllerTests
     {
-        public readonly string FakeToken = "393baf4d-13b6-4905-a9d3-33cf2e5560f4";
         private const int ExpectedRequestTime = 500;
         private const int ExpectedAverageRequestTime = 500;
-
-        private const string PaymentsUri = "https://localhost:44308/api/payments";
 
         [Fact]
         public async System.Threading.Tasks.Task RequestTimeAsync()
         {
             //Arrange
             var paymentId = new Guid();
-            var requestUri = $"{PaymentsUri}/{paymentId}";
+            var requestUri = $"{Configuration.PaymentsUri}/{paymentId}";
 
             //Act
             DateTime start;
             DateTime end;
             using (var client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Add("Authorization", FakeToken);
+                client.DefaultRequestHeaders.Add("Authorization", Configuration.FakeToken);
 
                 start = DateTime.Now;
                 await client.GetAsync(requestUri);
@@ -44,7 +42,7 @@ namespace PaymentService.PerformanceTests
         {
             //Arrange
             var paymentId = new Guid();
-            var requestUri = $"{PaymentsUri}/{paymentId}";
+            var requestUri = $"{Configuration.PaymentsUri}/{paymentId}";
             var allResponseTimes = new List<(DateTime Start, DateTime End)>();
 
             //Act
@@ -52,7 +50,7 @@ namespace PaymentService.PerformanceTests
             {
                 using (var client = new HttpClient())
                 {
-                    client.DefaultRequestHeaders.Add("Authorization", FakeToken);
+                    client.DefaultRequestHeaders.Add("Authorization", Configuration.FakeToken);
                     var start = DateTime.Now;
                     await client.GetAsync(requestUri);
                     var end = DateTime.Now;

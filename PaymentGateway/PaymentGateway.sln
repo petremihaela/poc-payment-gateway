@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentService.PerformanceT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FakeBankService", "FakeBankService\FakeBankService.csproj", "{9ACDEE3D-C095-44CE-AFB5-3B31A97B96C5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestsHelper", "TestsHelper\TestsHelper.csproj", "{ADFC5802-484D-4677-859F-9885CBE42D73}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{9ACDEE3D-C095-44CE-AFB5-3B31A97B96C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9ACDEE3D-C095-44CE-AFB5-3B31A97B96C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9ACDEE3D-C095-44CE-AFB5-3B31A97B96C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADFC5802-484D-4677-859F-9885CBE42D73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADFC5802-484D-4677-859F-9885CBE42D73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADFC5802-484D-4677-859F-9885CBE42D73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADFC5802-484D-4677-859F-9885CBE42D73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,6 +78,7 @@ Global
 		{8A15DBBB-7444-4EB1-A5EB-180018418736} = {A7CE5D2A-9EDB-4D80-B24F-3EECF18EE5C8}
 		{C2167FB0-8A82-4D61-AE87-0F47E7CB93F7} = {A7CE5D2A-9EDB-4D80-B24F-3EECF18EE5C8}
 		{9ACDEE3D-C095-44CE-AFB5-3B31A97B96C5} = {7B29855A-18B5-4531-9FF1-5CF0ECE0B702}
+		{ADFC5802-484D-4677-859F-9885CBE42D73} = {A7CE5D2A-9EDB-4D80-B24F-3EECF18EE5C8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C3C02A6B-3F87-47B7-9EFE-C4742F671D36}

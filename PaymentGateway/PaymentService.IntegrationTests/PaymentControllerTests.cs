@@ -1,31 +1,29 @@
 ﻿using PaymentService.Core.RequestModels;
+using PaymentService.Core.ResponseModels;
 using Shouldly;
 using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using PaymentService.Core.ResponseModels;
+using TestsHelper;
 using Xunit;
 
 namespace PaymentService.IntegrationTests
 {
     public class PaymentControllerTests
     {
-        private const string FakeToken = "393baf4d-13b6-4905-a9d3-33cf2e5560f4";
-        private const string PaymentsUri = "https://localhost:44308/api/payments";
-
         [Fact]
         public async Task WhenGetMethodIsInvokedWithAnEmptyPaymentId_GetShouldAnswerStatusNotFound()
         {
             //Arrange
             var expectedStatusCode = HttpStatusCode.NotFound;
             var paymentId = new Guid();
-            var requestUri = $"{PaymentsUri}/{paymentId}";
+            var requestUri = $"{Configuration.PaymentsUri}/{paymentId}";
 
             //Act
             using (var httpClient = new HttpClient())
             {
-                httpClient.DefaultRequestHeaders.Add("Authorization", FakeToken);
+                httpClient.DefaultRequestHeaders.Add("Authorization", Configuration.FakeToken);
 
                 var response = await httpClient.GetAsync(requestUri);
 
@@ -51,9 +49,9 @@ namespace PaymentService.IntegrationTests
             //Act
             using (var httpClient = new HttpClient())
             {
-                httpClient.DefaultRequestHeaders.Add("Authorization", FakeToken);
+                httpClient.DefaultRequestHeaders.Add("Authorization", Configuration.FakeToken);
 
-                var response = await httpClient.PostAsJsonAsync(PaymentsUri, payment);
+                var response = await httpClient.PostAsJsonAsync(Configuration.PaymentsUri, payment);
 
                 // Assert
                 response.StatusCode.ShouldBe(HttpStatusCode.OK);
@@ -77,9 +75,9 @@ namespace PaymentService.IntegrationTests
             //Act
             using (var httpClient = new HttpClient())
             {
-                httpClient.DefaultRequestHeaders.Add("Authorization", FakeToken);
+                httpClient.DefaultRequestHeaders.Add("Authorization", Configuration.FakeToken);
 
-                var response = await httpClient.PostAsJsonAsync(PaymentsUri, payment);
+                var response = await httpClient.PostAsJsonAsync(Configuration.PaymentsUri, payment);
                 var createdPaymentId = new Guid();
 
                 if (response.IsSuccessStatusCode)
@@ -88,7 +86,7 @@ namespace PaymentService.IntegrationTests
                     createdPaymentId = paymentCreated.PaymentId;
                 }
 
-                var requestUri = $"{PaymentsUri}/{createdPaymentId.ToString()}";
+                var requestUri = $"{Configuration.PaymentsUri}/{createdPaymentId.ToString()}";
                 var getPaymentResponse = await httpClient.GetAsync(requestUri);
 
                 // Assert

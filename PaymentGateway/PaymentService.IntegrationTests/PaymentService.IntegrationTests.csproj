@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PaymentService.Core\PaymentService.Core.csproj" />
+    <ProjectReference Include="..\TestsHelper\TestsHelper.csproj" />
   </ItemGroup>
 
 </Project>
