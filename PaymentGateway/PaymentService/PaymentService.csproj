@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <ApplicationInsightsResourceId>/subscriptions/cc8a19a5-c3b3-4e2e-9ec8-6add5c6b5140/resourcegroups/mp-payment-gateway-app-insights-rg/providers/microsoft.insights/components/mp-payment-gateway-app-insights</ApplicationInsightsResourceId>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/cc8a19a5-c3b3-4e2e-9ec8-6add5c6b5140/resourcegroups/mp-payment-gateway-app-insights-rg/providers/microsoft.insights/components/mp-payment-gateway-app-insights</ApplicationInsightsAnnotationResourceId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
@@ -28,6 +31,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PaymentService.Core\PaymentService.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
 </Project>
