@@ -11,6 +11,7 @@ using PaymentService.Core.Managers;
 using PaymentService.Core.Repositories;
 using PaymentService.Core.Services;
 using PaymentService.Filters;
+using PaymentService.Managers.PaymentProcessor;
 using PaymentService.Managers.Token;
 using PaymentService.Middlewares;
 using Serilog;
@@ -37,9 +38,16 @@ namespace PaymentService
             services.AddTransient<IPaymentRepository, PaymentRepository>();
             services.AddTransient<IPaymentManager, PaymentManager>();
 
-            services.AddHttpClient("tokensProvider", c =>
-            {
+            services.AddTransient<IPaymentProcessor, FakePaymentProcessor>();
+
+            services.AddHttpClient("tokensProvider", c =>  {
                 c.BaseAddress = new Uri(Configuration["TokensProvider"]);
+                c.DefaultRequestHeaders.Add("Accept", "application/json");
+            });
+
+            services.AddHttpClient("paymentsProcessor", c => {
+                c.BaseAddress = new Uri(Configuration["PaymentsProcessor"]);
+                c.DefaultRequestHeaders.Add("Accept", "application/json");
             });
 
             services.AddRouting(options => options.LowercaseUrls = true);

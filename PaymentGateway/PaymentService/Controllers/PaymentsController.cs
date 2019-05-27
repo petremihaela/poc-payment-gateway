@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using PaymentService.Core.Constants;
 using PaymentService.Core.Helpers;
 using PaymentService.Core.ReponseModels;
 using PaymentService.Core.RequestModels;
 using PaymentService.Core.Services;
+using PaymentService.Managers.PaymentProcessor;
 using System;
 using System.Threading.Tasks;
 
@@ -16,30 +16,29 @@ namespace PaymentService.Controllers
     {
         private readonly IPaymentManager _paymentManager;
 
+        private readonly IPaymentProcessor _paymentProcessor;
+
         private readonly ILogger<PaymentsController> _logger;
 
-        public PaymentsController(IPaymentManager paymentManager, ILogger<PaymentsController> logger)
+        public PaymentsController(IPaymentManager paymentManager, IPaymentProcessor paymentProcessor, ILogger<PaymentsController> logger)
         {
             _paymentManager = paymentManager;
+            _paymentProcessor = paymentProcessor;
             _logger = logger;
         }
 
         [HttpPost]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public IActionResult ProcessPayment([FromBody]PaymentProcessRequest payment)
+        public async Task<IActionResult> ProcessPaymentAsync([FromBody]PaymentProcessRequest payment)
         {
             //TODO validate request
 
             //TODO send request to bank
+            var paymentResponse = await _paymentProcessor.ProcessPaymentAsync(payment);
 
-            //Mock back
-            var paymentId = Guid.NewGuid();
-            var status = PaymentStatus.Authorized;
-            if (payment.Amount < 10)
-            {
-                status = PaymentStatus.Declined;
-            }
+            var paymentId = paymentResponse.PaymentId;
+            var status = paymentResponse.PaymentStatus;
 
             try
             {
@@ -49,7 +48,7 @@ namespace PaymentService.Controllers
                 paymentEntity.PaymentStatus = status;
                 paymentEntity.CreatedDate = DateTime.UtcNow;
 
-                _paymentManager.StorePaymentAsync(paymentEntity);
+                await _paymentManager.StorePaymentAsync(paymentEntity);
             }
             catch (Exception ex)
             {
