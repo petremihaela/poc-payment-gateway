@@ -38,16 +38,15 @@ namespace PaymentService
             services.AddTransient<IPaymentRepository, PaymentRepository>();
             services.AddTransient<IPaymentManager, PaymentManager>();
 
+            //Fake bank entity - current poc's scope
             services.AddTransient<IPaymentProcessor, FakePaymentProcessor>();
 
             services.AddHttpClient("tokensProvider", c =>  {
                 c.BaseAddress = new Uri(Configuration["TokensProvider"]);
-                c.DefaultRequestHeaders.Add("Accept", "application/json");
             });
 
             services.AddHttpClient("paymentsProcessor", c => {
                 c.BaseAddress = new Uri(Configuration["PaymentsProcessor"]);
-                c.DefaultRequestHeaders.Add("Accept", "application/json");
             });
 
             services.AddRouting(options => options.LowercaseUrls = true);
@@ -85,6 +84,7 @@ namespace PaymentService
             app.UseTokenAuthentication();
 
             loggerFactory.AddSerilog();
+
             app.UseMvc();
         }
     }

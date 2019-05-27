@@ -12,12 +12,14 @@ namespace PaymentService.PerformanceTests
         private readonly int expectedRequestTime = 500;
         private readonly int expectedAvarageRequestTime = 500;
 
+        private readonly string paymentsUri = "https://localhost:44308/api/payments";
+
         [Fact]
-        public void RequestTime()
+        public async System.Threading.Tasks.Task RequestTimeAsync()
         {
             //Arrange
             var paymentId = new Guid();
-            var requestUri = string.Format("{0}/{1}", "https://localhost:44308/api/payments", paymentId);
+            var requestUri = string.Format("{0}/{1}", paymentsUri, paymentId);
 
             //Act
             DateTime start;
@@ -27,7 +29,7 @@ namespace PaymentService.PerformanceTests
                 client.DefaultRequestHeaders.Add("Authorization", _fakeToken);
 
                 start = DateTime.Now;
-                var response = client.GetAsync(requestUri).Result;
+                var response = await client.GetAsync(requestUri);
                 end = DateTime.Now;
             }
             var actual = (int)(end - start).TotalMilliseconds;
@@ -38,11 +40,11 @@ namespace PaymentService.PerformanceTests
         }
 
         [Fact]
-        public void AverageResponseTime_100Requests()
+        public async System.Threading.Tasks.Task AverageResponseTime_100RequestsAsync()
         {
             //Arrange
             var paymentId = new Guid();
-            var requestUri = string.Format("{0}/{1}", "https://localhost:44308/api/payments", paymentId);
+            var requestUri = string.Format("{0}/{1}", paymentsUri, paymentId);
             var allResponseTimes = new List<(DateTime Start, DateTime End)>();
 
             //Act
@@ -52,7 +54,7 @@ namespace PaymentService.PerformanceTests
                 {
                     client.DefaultRequestHeaders.Add("Authorization", _fakeToken);
                     var start = DateTime.Now;
-                    var response = client.GetAsync(requestUri).Result;
+                    var response = await client.GetAsync(requestUri);
                     var end = DateTime.Now;
 
                     allResponseTimes.Add((start, end));

@@ -29,13 +29,14 @@ namespace PaymentService.Controllers
 
         [HttpPost]
         [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
-        public async Task<IActionResult> ProcessPaymentAsync([FromBody]PaymentProcessRequest payment)
+        public async Task<ActionResult<PaymentProcessResponse>> ProcessPaymentAsync([FromBody]PaymentProcessRequest payment)
         {
             //TODO validate request
 
-            //TODO send request to bank
             var paymentResponse = await _paymentProcessor.ProcessPaymentAsync(payment);
+
+            if (paymentResponse == null)
+                throw new Exception();
 
             var paymentId = paymentResponse.PaymentId;
             var status = paymentResponse.PaymentStatus;
@@ -55,7 +56,7 @@ namespace PaymentService.Controllers
                 _logger.LogError($"BankResponse-PaymentId: {paymentId}, BankResponse-Status:{status}, PaymentRequest: [{payment.ToString()}], Error: {ex.ToString()}");
             }
 
-            return Ok(new { paymentId, status });
+            return Ok(paymentResponse);
         }
 
         [HttpGet("{paymentId}")]

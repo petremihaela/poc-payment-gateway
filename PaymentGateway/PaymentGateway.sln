@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentService.UnitTests", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentService.PerformanceTests", "PaymentService.PerformanceTests\PaymentService.PerformanceTests.csproj", "{C2167FB0-8A82-4D61-AE87-0F47E7CB93F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FakeBankService", "FakeBankService\FakeBankService.csproj", "{9ACDEE3D-C095-44CE-AFB5-3B31A97B96C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FakeBankService", "FakeBankService\FakeBankService.csproj", "{9ACDEE3D-C095-44CE-AFB5-3B31A97B96C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

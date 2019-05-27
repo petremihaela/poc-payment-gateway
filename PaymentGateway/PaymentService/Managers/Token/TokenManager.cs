@@ -27,7 +27,7 @@ namespace PaymentService.Managers.Token
                 var request = new HttpRequestMessage(HttpMethod.Get, resource);
 
                 var client = _clientFactory.CreateClient("tokensProvider");
-
+                
                 var response = await client.SendAsync(request);
 
                 if (response.IsSuccessStatusCode)
