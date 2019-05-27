@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <ApplicationInsightsResourceId>/subscriptions/cc8a19a5-c3b3-4e2e-9ec8-6add5c6b5140/resourcegroups/mp-payment-gateway-app-insights-rg/providers/microsoft.insights/components/mp-payment-gateway-app-insights</ApplicationInsightsResourceId>
     <ApplicationInsightsAnnotationResourceId>/subscriptions/cc8a19a5-c3b3-4e2e-9ec8-6add5c6b5140/resourcegroups/mp-payment-gateway-app-insights-rg/providers/microsoft.insights/components/mp-payment-gateway-app-insights</ApplicationInsightsAnnotationResourceId>
+    <UserSecretsId>440adb67-361d-4561-8f1a-9f9a4dca0fec</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
