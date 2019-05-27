@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using PaymentService.Core.Models;
+using PaymentService.Core.RequestModels;
 using PaymentService.Core.ResponseModels;
 
 namespace PaymentService.Core.Managers
@@ -10,5 +12,8 @@ namespace PaymentService.Core.Managers
         Task<PaymentDetailsResponse> GetPaymentAsync(Guid paymentId);
 
         Task StorePaymentAsync(PaymentEntity payment);
+
+        bool ValidatePaymentRequest(PaymentProcessRequest paymentRequest);
+
     }
 }

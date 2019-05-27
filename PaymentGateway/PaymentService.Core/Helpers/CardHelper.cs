@@ -23,5 +23,16 @@ namespace PaymentService.Core.Helpers
 
             return true;
         }
+
+        public static bool IsValidCcv(string ccv)
+        {
+            if (string.IsNullOrEmpty(ccv))
+                throw new ArgumentException();
+
+            if (ccv.Length != 3 || !ccv.All(char.IsDigit))
+                throw new FormatException();
+
+            return true;
+        }
     }
 }

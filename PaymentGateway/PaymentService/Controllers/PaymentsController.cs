@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PaymentService.Core.Helpers;
+using PaymentService.Core.Managers;
 using PaymentService.Core.RequestModels;
+using PaymentService.Core.ResponseModels;
 using PaymentService.Managers.PaymentProcessor;
 using System;
 using System.Threading.Tasks;
-using PaymentService.Core.Managers;
-using PaymentService.Core.ResponseModels;
 
 namespace PaymentService.Controllers
 {
@@ -31,7 +31,14 @@ namespace PaymentService.Controllers
         [ProducesResponseType(200)]
         public async Task<ActionResult<PaymentProcessResponse>> ProcessPaymentAsync([FromBody]PaymentProcessRequest payment)
         {
-            //TODO validate request
+            try
+            {
+                _paymentManager.ValidatePaymentRequest(payment);
+            }
+            catch
+            {
+                return BadRequest();
+            }
 
             var paymentResponse = await _paymentProcessor.ProcessPaymentAsync(payment);
 
