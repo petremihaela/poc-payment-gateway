@@ -9,9 +9,9 @@ namespace PaymentService.IntegrationTests
 {
     public class PaymentServiceTokenTests
     {
-        private readonly string _fakeToken = "393baf4d-13b6-4905-a9d3-33cf2e5560f4";
+        private const string FakeToken = "393baf4d-13b6-4905-a9d3-33cf2e5560f4";
 
-        private readonly string paymentsUri = "https://localhost:44308/api/payments";
+        private const string PaymentsUri = "https://localhost:44308/api/payments";
 
         [Fact]
         public async Task WhenGetMethodIsInvokedWithoutAValidToken_GetShouldAnswerStatusUnAuthorized()
@@ -20,11 +20,11 @@ namespace PaymentService.IntegrationTests
             var expectedStatusCode = HttpStatusCode.Unauthorized;
            
             //Act
-            using (var _httpClient = new HttpClient())
+            using (var httpClient = new HttpClient())
             {
-                _httpClient.DefaultRequestHeaders.Remove("Authorization");
+                httpClient.DefaultRequestHeaders.Remove("Authorization");
 
-                var response = await _httpClient.GetAsync(paymentsUri);
+                var response = await httpClient.GetAsync(PaymentsUri);
 
                 // Assert
                 response.StatusCode.ShouldBe(expectedStatusCode);
@@ -39,11 +39,11 @@ namespace PaymentService.IntegrationTests
             var paymentId = new Guid();
 
             //Act
-            using (var _httpClient = new HttpClient())
+            using (var httpClient = new HttpClient())
             {
-                _httpClient.DefaultRequestHeaders.Add("Authorization", _fakeToken);
+                httpClient.DefaultRequestHeaders.Add("Authorization", FakeToken);
 
-                var response = await _httpClient.GetAsync($"{paymentsUri}/{paymentId}");
+                var response = await httpClient.GetAsync($"{PaymentsUri}/{paymentId}");
 
                 // Assert
                 response.StatusCode.ShouldBe(expectedStatusCode);

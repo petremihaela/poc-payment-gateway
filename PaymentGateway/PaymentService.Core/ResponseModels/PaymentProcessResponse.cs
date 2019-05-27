@@ -1,7 +1,7 @@
 ﻿
 using System;
 
-namespace PaymentService.Core.ReponseModels
+namespace PaymentService.Core.ResponseModels
 {
     public class PaymentProcessResponse
     {

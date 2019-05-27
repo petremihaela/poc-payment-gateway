@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PaymentService.Core.Helpers;
-using PaymentService.Core.ReponseModels;
 using PaymentService.Core.RequestModels;
-using PaymentService.Core.Services;
 using PaymentService.Managers.PaymentProcessor;
 using System;
 using System.Threading.Tasks;
+using PaymentService.Core.Managers;
+using PaymentService.Core.ResponseModels;
 
 namespace PaymentService.Controllers
 {

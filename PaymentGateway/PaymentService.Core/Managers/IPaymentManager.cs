@@ -1,9 +1,9 @@
-﻿using PaymentService.Core.Models;
-using PaymentService.Core.ReponseModels;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using PaymentService.Core.Models;
+using PaymentService.Core.ResponseModels;
 
-namespace PaymentService.Core.Services
+namespace PaymentService.Core.Managers
 {
     public interface IPaymentManager
     {

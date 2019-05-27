@@ -8,35 +8,35 @@ namespace PaymentService.PerformanceTests
 {
     public class PaymentControllerTests
     {
-        private readonly string _fakeToken = "393baf4d-13b6-4905-a9d3-33cf2e5560f4";
-        private readonly int expectedRequestTime = 500;
-        private readonly int expectedAvarageRequestTime = 500;
+        public readonly string FakeToken = "393baf4d-13b6-4905-a9d3-33cf2e5560f4";
+        private const int ExpectedRequestTime = 500;
+        private const int ExpectedAverageRequestTime = 500;
 
-        private readonly string paymentsUri = "https://localhost:44308/api/payments";
+        private const string PaymentsUri = "https://localhost:44308/api/payments";
 
         [Fact]
         public async System.Threading.Tasks.Task RequestTimeAsync()
         {
             //Arrange
             var paymentId = new Guid();
-            var requestUri = string.Format("{0}/{1}", paymentsUri, paymentId);
+            var requestUri = $"{PaymentsUri}/{paymentId}";
 
             //Act
             DateTime start;
             DateTime end;
             using (var client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Add("Authorization", _fakeToken);
+                client.DefaultRequestHeaders.Add("Authorization", FakeToken);
 
                 start = DateTime.Now;
-                var response = await client.GetAsync(requestUri);
+                await client.GetAsync(requestUri);
                 end = DateTime.Now;
             }
             var actual = (int)(end - start).TotalMilliseconds;
 
             //Assert
-            Assert.True(actual <= expectedRequestTime,
-                $"Expected total milliseconds of less than or equal to {expectedRequestTime} but was {actual}.");
+            Assert.True(actual <= ExpectedRequestTime,
+                $"Expected total milliseconds of less than or equal to {ExpectedRequestTime} but was {actual}.");
         }
 
         [Fact]
@@ -44,7 +44,7 @@ namespace PaymentService.PerformanceTests
         {
             //Arrange
             var paymentId = new Guid();
-            var requestUri = string.Format("{0}/{1}", paymentsUri, paymentId);
+            var requestUri = $"{PaymentsUri}/{paymentId}";
             var allResponseTimes = new List<(DateTime Start, DateTime End)>();
 
             //Act
@@ -52,9 +52,9 @@ namespace PaymentService.PerformanceTests
             {
                 using (var client = new HttpClient())
                 {
-                    client.DefaultRequestHeaders.Add("Authorization", _fakeToken);
+                    client.DefaultRequestHeaders.Add("Authorization", FakeToken);
                     var start = DateTime.Now;
-                    var response = await client.GetAsync(requestUri);
+                    await client.GetAsync(requestUri);
                     var end = DateTime.Now;
 
                     allResponseTimes.Add((start, end));
@@ -64,8 +64,8 @@ namespace PaymentService.PerformanceTests
             var actual = (int)allResponseTimes.Select(r => (r.End - r.Start).TotalMilliseconds).Average();
 
             //Assert
-            Assert.True(actual <= expectedAvarageRequestTime,
-                $"Expected average response time of less than or equal to {expectedAvarageRequestTime} ms but was {actual} ms.");
+            Assert.True(actual <= ExpectedAverageRequestTime,
+                $"Expected average response time of less than or equal to {ExpectedAverageRequestTime} ms but was {actual} ms.");
         }
     }
 }

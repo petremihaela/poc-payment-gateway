@@ -1,6 +1,6 @@
-﻿using PaymentService.Core.ReponseModels;
-using PaymentService.Core.RequestModels;
+﻿using PaymentService.Core.RequestModels;
 using System.Threading.Tasks;
+using PaymentService.Core.ResponseModels;
 
 namespace PaymentService.Managers.PaymentProcessor
 {

@@ -11,7 +11,7 @@ namespace PaymentService.UnitTests
         public void WhenAValidOnlyDigitsCardNumberIsUsed_IsValidCardNumberShouldReturnTrue()
         {
             //Arrange
-            var cardNumber = "1234567899";
+            const string cardNumber = "1234567899";
 
             //Act
             var isValidCardNumber = CardHelper.IsValidCardNumber(cardNumber);
@@ -25,30 +25,24 @@ namespace PaymentService.UnitTests
         [InlineData("")]
         public void WhenANullOrEmptyCardNumberIsUsed_IsValidCardNumberShouldThrowArgumentException(string cardNumber)
         {
-            //Act
-            Action isValidCardNumberAction = () => CardHelper.IsValidCardNumber(cardNumber);
-
             //Arrange
-            Should.Throw(isValidCardNumberAction, typeof(ArgumentException));
+            Should.Throw(() => CardHelper.IsValidCardNumber(cardNumber), typeof(ArgumentException));
         }
 
         [Theory]
         [InlineData("1234")]
         [InlineData("12345123451234512345")]
-        public void WhenACardNumberWithInvalidLenghtIsUsed_IsValidCardNumberShouldThrowFormatException(string cardNumber)
+        public void WhenACardNumberWithInvalidLengthIsUsed_IsValidCardNumberShouldThrowFormatException(string cardNumber)
         {
-            //Act
-            Action isValidCardNumberAction = () => CardHelper.IsValidCardNumber(cardNumber);
-
             //Assert
-            Should.Throw(isValidCardNumberAction, typeof(FormatException));
+            Should.Throw(() => CardHelper.IsValidCardNumber(cardNumber), typeof(FormatException));
         }
 
         [Fact]
         public void WhenAValidCardNumberIsUsed_MaskShouldReturnMaskedCardNumberWithTheLastFourDigitsNotMasked()
         {
             //Arrange
-            var cardNumber = "123456781234";
+            const string cardNumber = "123456781234";
 
             //Act
             var maskedCardNumber = CardHelper.Mask(cardNumber);

@@ -2,9 +2,8 @@
 using System.Threading.Tasks;
 using PaymentService.Core.Helpers;
 using PaymentService.Core.Models;
-using PaymentService.Core.ReponseModels;
 using PaymentService.Core.Repositories;
-using PaymentService.Core.Services;
+using PaymentService.Core.ResponseModels;
 
 namespace PaymentService.Core.Managers
 {

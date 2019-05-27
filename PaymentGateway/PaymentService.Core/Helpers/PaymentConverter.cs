@@ -1,6 +1,6 @@
 ﻿using PaymentService.Core.Models;
-using PaymentService.Core.ReponseModels;
 using PaymentService.Core.RequestModels;
+using PaymentService.Core.ResponseModels;
 
 namespace PaymentService.Core.Helpers
 {

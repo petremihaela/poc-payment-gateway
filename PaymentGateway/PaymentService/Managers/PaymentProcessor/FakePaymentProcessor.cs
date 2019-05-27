@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
-using PaymentService.Core.ReponseModels;
 using PaymentService.Core.RequestModels;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using PaymentService.Core.ResponseModels;
 
 namespace PaymentService.Managers.PaymentProcessor
 {

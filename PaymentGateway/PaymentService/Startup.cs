@@ -9,7 +9,6 @@ using Microsoft.Extensions.Logging;
 using PaymentService.Core.Context;
 using PaymentService.Core.Managers;
 using PaymentService.Core.Repositories;
-using PaymentService.Core.Services;
 using PaymentService.Filters;
 using PaymentService.Managers.PaymentProcessor;
 using PaymentService.Managers.Token;
