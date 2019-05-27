@@ -13,13 +13,7 @@ namespace FakeTokenService.Services
 
         public bool IsValidToken(string tokenId)
         {
-            if (string.IsNullOrEmpty(tokenId))
-                return false;
-
-            if (tokenId.Equals(_configuration["FakeToken"]))
-                return true;
-
-            return false;
+            return !string.IsNullOrEmpty(tokenId) && tokenId.Equals(_configuration["FakeToken"]);
         }
     }
 }
