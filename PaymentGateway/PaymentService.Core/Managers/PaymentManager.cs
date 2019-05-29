@@ -41,7 +41,8 @@ namespace PaymentService.Core.Managers
 
             var isValidCardNumber = CardHelper.IsValidCardNumber(paymentRequest.CardNumber);
             var isValidCcv = CardHelper.IsValidCcv(paymentRequest.Ccv);
-            var isValidMonth = paymentRequest.ExpiryMonth >= 1 && paymentRequest.ExpiryMonth <= 12;
+            var isValidMonth = CardHelper.IsValidExpiryMonth(paymentRequest.ExpiryMonth);
+
             return isValidCardNumber && isValidCcv && isValidMonth;
         }
     }

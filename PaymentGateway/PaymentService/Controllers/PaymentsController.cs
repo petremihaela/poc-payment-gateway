@@ -6,6 +6,7 @@ using PaymentService.Core.RequestModels;
 using PaymentService.Core.ResponseModels;
 using PaymentService.Managers.PaymentProcessor;
 using System;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace PaymentService.Controllers
@@ -29,6 +30,8 @@ namespace PaymentService.Controllers
 
         [HttpPost]
         [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(502)]
         public async Task<ActionResult<PaymentProcessResponse>> ProcessPaymentAsync([FromBody]PaymentProcessRequest payment)
         {
             try
@@ -43,7 +46,7 @@ namespace PaymentService.Controllers
             var paymentResponse = await _paymentProcessor.ProcessPaymentAsync(payment);
 
             if (paymentResponse == null)
-                throw new Exception();
+                return StatusCode((int)HttpStatusCode.BadGateway);
 
             var paymentId = paymentResponse.PaymentId;
             var status = paymentResponse.PaymentStatus;

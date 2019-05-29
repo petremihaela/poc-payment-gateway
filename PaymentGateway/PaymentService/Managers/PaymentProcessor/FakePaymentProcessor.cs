@@ -38,6 +38,7 @@ namespace PaymentService.Managers.PaymentProcessor
             {
                 _logger.LogError(ex.ToString());
             }
+
             return null;
         }
     }
